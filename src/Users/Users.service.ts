@@ -1,8 +1,9 @@
 import api from "../_shared/Configs/Axios"
+import { userCreateSchemaType } from "./User.schema"
 import { UsersType } from "./Users.type"
 
-const createUsers = async () => {
-    const { data } = await api.get("/users")
+const createUsers = async (payload: userCreateSchemaType) => {
+    const { data } = await api.post("/users", payload)
     return data
 }
 const getAllUsers = async (

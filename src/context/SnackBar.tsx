@@ -1,15 +1,22 @@
 // SnackbarContext.tsx
 import { createContext, useState, useContext, ReactNode } from 'react';
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, AlertColor } from '@mui/material';
 
-const SnackbarContext = createContext<any>(null);
+// 1. Define the shape of the context
+interface SnackbarContextType {
+  showSnackbar: (message: string, severity?: AlertColor) => void;
+}
 
+// 2. Create the context with proper typing (null default initially)
+const SnackbarContext = createContext<SnackbarContextType | undefined>(undefined);
+
+// 3. Provider component
 export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [severity, setSeverity] = useState<'success' | 'error' | 'info' | 'warning'>('info');
+  const [severity, setSeverity] = useState<AlertColor>('info');
 
-  const showSnackbar = (msg: string, sev: typeof severity = 'info') => {
+  const showSnackbar = (msg: string, sev: AlertColor = 'info') => {
     setMessage(msg);
     setSeverity(sev);
     setOpen(true);
@@ -21,7 +28,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
     <SnackbarContext.Provider value={{ showSnackbar }}>
       {children}
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+        <Alert className='bg-green-600 text-white' onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
       </Snackbar>
@@ -29,4 +36,12 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useSnackbar = () => useContext(SnackbarContext);
+// 4. Safe hook for using the context
+export const useSnackbar = (): SnackbarContextType => {
+  const context = useContext(SnackbarContext);
+  if (!context) {
+    throw new Error('useSnackbar must be used within a SnackbarProvider');
+  }
+  return context;
+};
+

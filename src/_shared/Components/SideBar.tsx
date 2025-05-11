@@ -65,7 +65,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -73,10 +72,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import routes from '../../routes/routes';
 import { Link } from 'react-router-dom';
 
@@ -153,8 +149,8 @@ export default function PersistentDrawerLeft({children}:{children:React}) {
             {routes.map((e, i) => (
                 <Link to={e.path} key={i}>
                     <ListItem key={e.name} disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={e.name} />
+                        <ListItemButton className='flex justify-center items-center gap-4'>
+                           <>{e.icon}</> <ListItemText className='text-lg' primary={e.name} />
                         </ListItemButton>
                     </ListItem>
                 </Link>

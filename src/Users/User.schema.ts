@@ -7,7 +7,7 @@ export const userCreateSchema = z.object({
     registrationFee: z
         .number({ invalid_type_error: "Registration fee must be a number" })
         .nonnegative("Fee must be positive"),
-    monthlyFees: z
+    monthlyFee: z
         .number({ invalid_type_error: "Monthly fee must be a number" })
         .nonnegative("Fee must be positive"),
     cardio: z.boolean(),

@@ -1,7 +1,6 @@
-import { Avatar, Button, Card, Input, OutlinedInput, Switch, TextField } from "@mui/material"
+import { Avatar, Button, Card, OutlinedInput, Switch, TextField } from "@mui/material"
 import { useState } from "react"
 import { useUserCreateForm } from "../useUsers";
-import { Form } from "react-hook-form";
 
 const UserCreateTab = () => {
   const [Checked, setChecked] = useState(false)
@@ -44,17 +43,17 @@ const UserCreateTab = () => {
           <div className="">
             <TextField
               type="number"
-              {...register("registrationFee")}
+              {...register("registrationFee", { valueAsNumber: true })}
               defaultValue={1500} className="w-full" label="Registration Fee" variant="outlined" />
             {errors.registrationFee && <p className="text-red-600">{errors.registrationFee.message}</p>}
           </div>
 
           <div className="">
             <TextField
-            type="number"
-              {...register("monthlyFees")}
+              type="number"
+              {...register("monthlyFee", { valueAsNumber: true })}
               defaultValue={2000} className="w-full" label="Monthly Fees" variant="outlined" />
-            {errors.monthlyFees && <p className="text-red-600">{errors.monthlyFees.message}</p>}
+            {errors.monthlyFee && <p className="text-red-600">{errors.monthlyFee.message}</p>}
           </div>
 
         </div>
@@ -81,7 +80,7 @@ const UserCreateTab = () => {
       <Card className="w-[40%] py-4 flex flex-col gap-4 justify-center items-center mx-auto">
         {/* image */}
         {<Avatar
-          
+
           className="size-[17rem] ring-2 ring-black "
           alt="Remy Sharp"
           src={image || "/default-user.avif"}

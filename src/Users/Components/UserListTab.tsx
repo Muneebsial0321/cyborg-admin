@@ -188,8 +188,8 @@ const PaymentModal: React.FC<IPaymentModal> = ({ userId, cardio = false, payment
             <p> payment {payment}</p>
             <p> cardio {cardio}</p>
             <div className="flex w-full justify-center gap-4 mt-4">
-              <Button onClick={handleClose} variant='outlined' className='w-full rounded-xl border-red-500 text-red-500'>Cancel</Button>
-              <Button variant='contained' className='w-full bg-black rounded-xl'>Confirm</Button>
+              <Button onClick={handleClose} variant='outlined' className='hover:scale-105 transition-all duration-300 w-full rounded-xl border-red-500 text-red-500'>Cancel</Button>
+              <Button variant='contained' className='w-full hover:scale-105 transition-all bg-black rounded-xl'>Confirm</Button>
             </div>
           </div>
         </Box>
