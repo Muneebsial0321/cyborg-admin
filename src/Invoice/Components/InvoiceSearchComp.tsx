@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const InvoiceSearch = () => {
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [, setSearchParams] = useSearchParams()
     const [query, setQuery] = useState<string | null>("")
     const [invoiceType, setInvoiceType] = useState<string | null>("")
     const [createdAt, setCreatedAt] = useState<string | null>(new Date().toDateString())

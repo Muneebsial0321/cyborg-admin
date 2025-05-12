@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 const UserSearch = () => {
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [, setSearchParams] = useSearchParams()
     const [searchQuery, setSearchQuery] = useState<string | null>("")
     const [paymentStatus, setPaymentStatus] = useState<string | null>("")
 

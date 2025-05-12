@@ -1,6 +1,5 @@
 import React from 'react'
 import SideBar from '../Components/SideBar'
-import { Box } from '@mui/material'
 
 const SideBarLayout = ({ children }: { children: React.ReactNode }) => {
     return (

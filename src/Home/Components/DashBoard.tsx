@@ -8,7 +8,7 @@ const DashBoard = () => {
             </h1>
             {/*canvas  */}
             <div className="grid grid-cols-4 gap-4">
-                {[11,1,1,1,1,1,1,1].map((e, i) => (
+                {[11,1,1,1,1,1,1,1].map((_, i) => (
                     <DashBoardWidget
                         key={i}
                         label="User"

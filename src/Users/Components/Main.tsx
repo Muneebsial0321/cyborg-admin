@@ -7,6 +7,7 @@ import UserUpdateTab from "./UserUpdateTab";
 export default function Main() {
       const [value, setValue] = useState(0);
       const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+            console.log(event);
             setValue(newValue);
       }
       return <>
@@ -18,7 +19,7 @@ export default function Main() {
                   Users
             </Typography>
 
-            
+
             <Box sx={{ width: '100%' }}>
 
                   {/* tabs */}

@@ -1,12 +1,13 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
-import UserListTab from "../../Users/Components/UserListTab";
 import { CustomTabPanel } from "../../Users/Components/Main";
 import InvoiceListTab from "./InvoiceListTab";
 
 export default function Main() {
       const [value, setValue] = useState(0);
       const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+            console.log(event);
+            
             setValue(newValue);
       }
       return <>

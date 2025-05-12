@@ -139,7 +139,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function PersistentDrawerLeft({children}:{children:React}) {
+export default function PersistentDrawerLeft({children}:{children:React.ReactNode}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 

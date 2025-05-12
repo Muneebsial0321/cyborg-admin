@@ -1,4 +1,3 @@
-import { Paper } from "@mui/material"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 
 const columns: GridColDef[] = [

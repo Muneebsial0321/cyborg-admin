@@ -1,13 +1,13 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { IconButton, Tooltip, Typography } from '@mui/material';
-import { Delete, Edit, Save, ViewAgenda } from '@mui/icons-material';
+import { Edit, Save, ViewAgenda } from '@mui/icons-material';
 import useAttendence from '../../Attendence/useAttendence';
 import { format } from "date-fns"
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { InvoiceType } from '../Invoice.type';
 import useInvoices from '../useInvoice';
 import InvoiceSearch from './InvoiceSearchComp';

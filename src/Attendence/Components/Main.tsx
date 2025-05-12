@@ -1,10 +1,8 @@
 import { Delete, Edit } from "@mui/icons-material";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import useAttendence from "../useAttendence";
 
 export default function Main() {
-   const {registerAttendance} = useAttendence()
 const columns: GridColDef[] = [
    { field: 'id', headerName: 'ID', width: 70 },
    { field: 'fullName', headerName: 'Name', width: 130 },
@@ -48,7 +46,7 @@ const rows = [
    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-const paginationModel = { page: 0, pageSize: 5 };
+// const paginationModel = { page: 0, pageSize: 5 };
 
 
    return <div
