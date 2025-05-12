@@ -18,14 +18,14 @@ export default defineConfig({
         theme_color: '#0f172a', // Optional: Tailwind slate-900
         icons: [
           {
-            src: '/vite.svg',
+            src: '/icom.png',
             sizes: '192x192',
-            type: 'image/svg'
+            type: 'image/png'
           },
           {
             src: '/vite.svg',
             sizes: '512x512',
-            type: 'image/svg'
+            type: 'image/png'
           }
         ]
       }
