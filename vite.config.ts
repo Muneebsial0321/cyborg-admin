@@ -15,21 +15,24 @@ export default defineConfig({
         start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',
-        theme_color: '#0f172a', // Optional: Tailwind slate-900
+        theme_color: '#0f172a',
         icons: [
           {
-            src: '/icom.png',
+            src: '/icon.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any maskable'
           },
           {
-            src: '/vite.svg',
+            src: '/icon.png',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any maskable'
           }
         ]
       }
     })
+
   ]
 })
 
