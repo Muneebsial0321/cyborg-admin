@@ -26,10 +26,10 @@ const UserCreateTab = () => {
           label="Name" variant="outlined" />
         {errors.name && <p className="text-red-600">{errors.name.message}</p>}
 
-        <TextField
+        {/* <TextField
           {...register("email")}
           label="Email" variant="outlined" />
-        {errors.email && <p className="text-red-600">{errors.email.message}</p>}
+        {errors.email && <p className="text-red-600">{errors.email.message}</p>} */}
 
 
         <TextField

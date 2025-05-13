@@ -1,8 +1,7 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { IconButton, Tooltip, Typography } from '@mui/material';
-import { Edit, Save, ViewAgenda } from '@mui/icons-material';
-import useAttendence from '../../Attendence/useAttendence';
+import { Edit, ViewAgenda } from '@mui/icons-material';
 import { format } from "date-fns"
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -19,7 +18,6 @@ const paginationModel = { page: 0, pageSize: 5 };
 
 export default function InvoiceListTab() {
 
-  const { registerAttendance } = useAttendence()
   const columns: GridColDef<InvoiceType>[] = [
 
     // id
@@ -90,15 +88,7 @@ export default function InvoiceListTab() {
               <Edit className='text-blue-700' />
             </IconButton>
           </Tooltip>
-          <Tooltip
-            title="Mark Todays attendance"
-          >
-            <IconButton
-              onClick={() => registerAttendance(params.row.id)}
-            >
-              <Save className='text-green-700' />
-            </IconButton>
-          </Tooltip>
+
           <Tooltip
             title="Delete User"
           >
@@ -115,38 +105,38 @@ export default function InvoiceListTab() {
   return (
 
     <>
-      {getInvoices &&
-        <Paper
-          className='w-[97%] p-4 hide-scrollbar'
-        >
-          <InvoiceSearch />
-          
-          <div className="w-[full] hide-scrollbar">
+
+      <Paper
+        className='w-[97%] p-4 hide-scrollbar'
+      >
+        <InvoiceSearch />
+
+        <div className="w-[full] hide-scrollbar">
 
 
-            <DataGrid
-              className='overflow-auto hide-scrollbar'
-              rows={getInvoices}
-              columns={columns}
-              initialState={{ pagination: { paginationModel } }}
-              pageSizeOptions={[5, 10]}
-              // checkboxSelection
-              sx={{
-                border: 0,
-                '& .MuiDataGrid-columnHeaders': {
-                  backgroundColor: '#f5f5f5', // optional: gives a nice background
-                  fontSize: '1rem',         // BIG
-                  fontWeight: 'bold',         // BOLD
-                  color: '#333',              // optional: darker text
-                },
-                '& .MuiDataGrid-columnHeaderTitle': {
-                  fontWeight: 'bold',         // Bolder titles
-                },
-              }}
+          <DataGrid
+            className='overflow-auto hide-scrollbar'
+            rows={getInvoices}
+            columns={columns}
+            initialState={{ pagination: { paginationModel } }}
+            pageSizeOptions={[5, 10]}
+            // checkboxSelection
+            sx={{
+              border: 0,
+              '& .MuiDataGrid-columnHeaders': {
+                backgroundColor: '#f5f5f5', // optional: gives a nice background
+                fontSize: '1rem',         // BIG
+                fontWeight: 'bold',         // BOLD
+                color: '#333',              // optional: darker text
+              },
+              '& .MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 'bold',         // Bolder titles
+              },
+            }}
 
-            />
-          </div>
-        </Paper>}
+          />
+        </div>
+      </Paper>
     </>
   );
 }
@@ -179,7 +169,7 @@ const InvoiceModal = ({ invoice }: { invoice: InvoiceType }) => {
             {/*name */}
             <div className="flex justify-between">
               <p className='font-mono text-sm font-semibold text-gray-500 w-full'>
-               User Name:
+                User Name:
               </p>
               <p className='font-bold text-sm text-gray-600'>
                 {invoice.user.name}

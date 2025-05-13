@@ -1,9 +1,11 @@
-export type UsersType ={
+export type UsersType = {
     id?: string
     name: string
     email: string
     phoneNumber: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    nextPayment?: Date | string | null
+    nextPayment?: Date | null
+    hasAttendanceToday: "Present" | "Absent",
+    hasPaid: "paid" | "due" | "finishing"
 }

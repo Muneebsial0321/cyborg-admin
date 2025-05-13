@@ -4,7 +4,6 @@ import useUsers from '../useUsers';
 import { Chip, IconButton, Tooltip, Typography } from '@mui/material';
 import { Delete, Edit, Save } from '@mui/icons-material';
 import UserSearch from './UserSearch';
-import useAttendence from '../../Attendence/useAttendence';
 import { format } from "date-fns"
 
 
@@ -13,8 +12,7 @@ const paginationModel = { page: 0, pageSize: 5 };
 
 export default function UserListTab() {
 
-  const { registerAttendance } = useAttendence()
-  const columns: GridColDef[] = [
+  const columns: GridColDef<UsersType>[] = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: 'Name', width: 130 },
     // { field: 'email', headerName: 'Email', width: 130 },
@@ -23,7 +21,7 @@ export default function UserListTab() {
     {
       field: 'nextPayment', headerName: 'Next Payment', width: 130
       , renderCell: ((params) => {
-        return <>{format(new Date(params.row.nextPayment), 'MMMM do, yyyy')}</>
+        return <>{format(new Date(params.row.nextPayment!), 'MMMM do, yyyy')}</>
       })
     },
     {
@@ -77,24 +75,28 @@ export default function UserListTab() {
               <Edit className='text-blue-700' />
             </IconButton>
           </Tooltip>
-          <Tooltip
-            title="Mark Todays attendance"
-          >
-            <IconButton
-              onClick={() => registerAttendance(params.row.id)}
-            >
-              <Save className='text-green-700' />
-            </IconButton>
-          </Tooltip>
+
           <Tooltip
             title="Delete User"
           >
 
-            <PaymentModal userId={params.row.id} >
+            <PaymentModal userId={params.row.id!} >
               <Delete className='text-red-600' />
             </PaymentModal>
 
           </Tooltip>
+
+
+          <Tooltip
+            title="Mark Todays attendance"
+          >
+            <AttendanceModal userId={params.row.id!} userName={params.row.name} >
+              <IconButton className={`${params.row.hasAttendanceToday == "Present" ? "hidden" : ""}`}>
+                <Save className='text-green-700' />
+              </IconButton>
+            </AttendanceModal>
+          </Tooltip>
+
         </div>
       }
       )
@@ -145,6 +147,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import React, { useState } from 'react';
+import { UsersType } from '../Users.type';
+import { useAttendence } from '../../Attendence/useAttendance';
 
 // const style = {
 //   position: 'absolute',
@@ -190,6 +194,50 @@ const PaymentModal: React.FC<IPaymentModal> = ({ userId, cardio = false, payment
             <div className="flex w-full justify-center gap-4 mt-4">
               <Button onClick={handleClose} variant='outlined' className='hover:scale-105 transition-all duration-300 w-full rounded-xl border-red-500 text-red-500'>Cancel</Button>
               <Button variant='contained' className='w-full hover:scale-105 transition-all bg-black rounded-xl'>Confirm</Button>
+            </div>
+          </div>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+
+
+interface IAttendanceModal {
+  userId: string;
+  userName?: string;
+  children: React.ReactNode
+}
+const AttendanceModal: React.FC<IAttendanceModal> = ({ userId, userName, children }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const { registerAttendance } = useAttendence()
+
+  return (
+    <div>
+      <div onClick={handleOpen}>{children}</div>
+      {/* <IconButton onClick={handleOpen}>{children}</IconButton> */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className='flex justify-center items-center h-[100vh]'>
+          <div className="bg-[#ffffff] rounded-3xl p-10">
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Confirm Attendance
+            </Typography>
+            {/* <p> userId {userId}</p> */}
+            <p className='font-mono my-4'> Name: {userName}</p>
+
+            <div className="flex w-full justify-center gap-4 mt-4">
+              <Button onClick={() => { registerAttendance(userId, "MORNING"); handleClose() }} variant='outlined' className='hover:scale-105 transition-all duration-300 w-full rounded-xl border-black text-black'>Morning</Button>
+              <Button onClick={() => { registerAttendance(userId, "EVENING"); handleClose() }} variant='contained' className='w-full hover:scale-105 transition-all bg-black rounded-xl'>Evening</Button>
+            </div>
+            <div className="flex w-full justify-center gap-4 mt-4">
+              <Button onClick={handleClose} variant='outlined' className='hover:scale-105 transition-all duration-300 w-full rounded-xl border-red-500 text-red-500'>Cancel</Button>
             </div>
           </div>
         </Box>

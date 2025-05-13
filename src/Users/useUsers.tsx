@@ -29,7 +29,6 @@ export const useUserCreateForm = () => {
       resolver: zodResolver(userCreateSchema),
       defaultValues: {
          name: "",
-         email: "",
          phone: "",
          registrationFee: 1500,
          monthlyFee: 2000,

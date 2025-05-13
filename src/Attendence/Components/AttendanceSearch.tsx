@@ -2,18 +2,17 @@ import { Search } from '@mui/icons-material'
 import { FormControl, IconButton, InputLabel, MenuItem, OutlinedInput, Paper, Select, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const InvoiceSearch = () => {
+const AttendanceSearch = () => {
     const [, setSearchParams] = useSearchParams()
     const [query, setQuery] = useState<string | null>("")
-    const [invoiceType, setInvoiceType] = useState<string | null>("")
+    const [attendanceType, setAttendanceType] = useState<string | null>(null)
     const [createdAt, setCreatedAt] = useState<string | null>(null)
 
     const handleSearchClick = () => {
         setSearchParams({
             ...(query ? { query } : {}),
-            ...(invoiceType ? { invoiceType } : {}),
+            ...(attendanceType ? { attendanceType } : {}),
             ...(createdAt ? { createdAt } : {}),
         })
     }
@@ -43,38 +42,28 @@ const InvoiceSearch = () => {
                     <Select
                         labelId="demo-simple-select-helper-label"
                         id="demo-simple-select-helper"
-                        value={invoiceType}
-                        onChange={(e) => setInvoiceType(e.target.value)}
+                        value={attendanceType}
+                        onChange={(e) => setAttendanceType(e.target.value as string)}
                         label="Status"
-                    //   onChange={handleChange}
                     >
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        <MenuItem value={"paid"}>Paid</MenuItem>
-                        <MenuItem value={"finishing"}>Finishing Soon</MenuItem>
-                        <MenuItem value={"due"}>Due</MenuItem>
+                        <MenuItem value={"MORNING"}>Morning</MenuItem>
+                        <MenuItem value={"EVENING"}>Evening</MenuItem>
+                        {/* <MenuItem value={""} >Clear</MenuItem> */}
                     </Select>
-                    {/* <FormHelperText>With label + helper text</FormHelperText> */}
                 </FormControl>
             </div>
 
             {/* createdAT */}
-            <OutlinedInput
-                type="date"
+            <OutlinedInput type="date"
                 value={createdAt}
                 onChange={(e) => {
                     setCreatedAt((e.target.value));
                 }}
             />
-            {/* <DatePicker
-                label="Created At"
-                className='w-[11rem]'
-                value={new Date(createdAt!)}
-                onChange={(newValue: Date | null) => {
-                    setCreatedAt(newValue!.toDateString());
-                }}
-            /> */}
+
 
             {/* Button */}
             <div className="shadow-3xl">
@@ -88,4 +77,4 @@ const InvoiceSearch = () => {
     )
 }
 
-export default InvoiceSearch
+export default AttendanceSearch
