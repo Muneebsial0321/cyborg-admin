@@ -1,5 +1,5 @@
 import api from "../_shared/Configs/Axios"
-import { userCreateSchemaType } from "./User.schema"
+import { userCreateSchemaType } from "./User.schema";
 import { UsersType } from "./Users.type"
 
 const createUsers = async (payload: userCreateSchemaType) => {

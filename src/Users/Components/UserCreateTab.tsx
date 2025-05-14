@@ -3,7 +3,8 @@ import { useState } from "react"
 import { useUserCreateForm } from "../useUsers";
 
 const UserCreateTab = () => {
-  const [Checked, setChecked] = useState(false)
+  const [cardioChecked, setCardioChecked] = useState(false)
+  const [personalTrainerChecked, setPersonalTrainerChecked] = useState(false)
   const [image, setImage] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,20 +60,40 @@ const UserCreateTab = () => {
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <Switch
-              checked={Checked}
-              onChange={(e) => {
-                setChecked(e.target.checked)
-                console.log(e.target.checked)
+          <div className="flex flex-col">
+            <div className="flex items-center">
+              <Switch
+              {...register("cardio")}
+                checked={cardioChecked}
+                onChange={(e) => {
+                  setCardioChecked(e.target.checked)
+                  console.log(e.target.checked)
+                }
+                }
+                defaultChecked />
+              {
+                cardioChecked ?
+                  <p className="text-black">Cardio</p>
+                  : <p className="text-gray-400">Cardio</p>
               }
+            </div>
+
+            <div className="flex items-center">
+              <Switch
+              {...register("personalTrainer")}
+                checked={personalTrainerChecked}
+                onChange={(e) => {
+                  setPersonalTrainerChecked(e.target.checked)
+                  console.log(e.target.checked)
+                }
+                }
+                defaultChecked />
+              {
+                personalTrainerChecked ?
+                  <p className="text-black">Trainer</p>
+                  : <p className="text-gray-400">Trainer</p>
               }
-              defaultChecked />
-            {
-              Checked ?
-                <p className="text-black">Cardio</p>
-                : <p className="text-gray-400">Cardio</p>
-            }
+            </div>
           </div>
           <Button type="submit" variant="contained" className="bg-black py-3 rounded-xl w-[16rem]">Register</Button>
         </div>
@@ -88,7 +109,9 @@ const UserCreateTab = () => {
         {/* {image && <img src={image} alt="Preview" className="object-center size-[17rem] rounded-3xl" />} */}
 
         {/* input */}
-        <OutlinedInput className="w-[17rem]" type={"file"} onChange={handleImageChange} />
+        <OutlinedInput
+        // {...register("image")}
+        className="w-[17rem]" type={"file"} onChange={handleImageChange} />
       </Card>
     </form>
   )

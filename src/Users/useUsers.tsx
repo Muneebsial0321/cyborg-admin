@@ -34,15 +34,24 @@ export const useUserCreateForm = () => {
          monthlyFee: 2000,
          cardio: false,
          image: null,
+         personalTrainer: false,
       },
    });
    const onSubmit = async (data: userCreateSchemaType) => {
-      console.log(data);
-      await createUsers(data)
-      showSnackbar(
-         "User Created Successfully",
-         "success"
-      )
+      try {
+         await createUsers(data)
+         showSnackbar(
+            "User Created Successfully",
+            "success"
+         )
+      } catch (error) {
+         console.log({ error });
+         showSnackbar(
+            "Some Error Occured",
+            "error"
+         )
+
+      }
    };
    return { register, handleSubmit, formState, watch, onSubmit }
 };

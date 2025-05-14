@@ -5,7 +5,7 @@ export default function Main() {
    return (
       <div className="">
          <DashBoard/>
-         <DashBoardUserSection/>
+         {/* <DashBoardUserSection/> */}
       </div>
    )
 }

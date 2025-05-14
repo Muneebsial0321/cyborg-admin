@@ -7,5 +7,8 @@ export type UsersType = {
     updatedAt?: Date | string
     nextPayment?: Date | null
     hasAttendanceToday: "Present" | "Absent",
-    hasPaid: "paid" | "due" | "finishing"
+    hasPaid: "paid" | "due" | "finishing",
+    presonalTrainer: boolean
+    cardio: boolean
+    image: string | null
 }

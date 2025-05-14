@@ -11,7 +11,8 @@ export const userCreateSchema = z.object({
         .number({ invalid_type_error: "Monthly fee must be a number" })
         .nonnegative("Fee must be positive"),
     cardio: z.boolean(),
-    image: z.string().nullable(), // base64 or null
+    personalTrainer: z.boolean(),
+    image: z.any(), // base64 or null
 });
 
 export type userCreateSchemaType = z.infer<typeof userCreateSchema>;

@@ -107,7 +107,7 @@ export default function UserListTab() {
   return (
 
     <>
-      {getUsers &&
+  
         <Paper
           className='w-[97%] p-4 hide-scrollbar'
         >
@@ -137,7 +137,7 @@ export default function UserListTab() {
 
             />
           </div>
-        </Paper>}
+        </Paper>
     </>
   );
 }

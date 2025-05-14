@@ -21,39 +21,39 @@ export default function AttendanceListTab() {
         { field: 'name', headerName: 'Name', width: 130, renderCell: (params) => (<>{params.row.User.name}</>) },
         { field: 'phone', headerName: 'Phone', width: 130, renderCell: (params) => (<>{params.row.User.phoneNumber}</>) },
         { field: 'Time', headerName: 'Time', width: 130, renderCell: (params) => (<>{params.row.time}</>) },
-        { field: 'CreatedAT', headerName: 'Created AT', width: 130, renderCell: (params) => (<>{format(params.row.createdAt, "PPP, p") }</>) },
+        { field: 'CreatedAT', headerName: 'Created AT', width: 190, renderCell: (params) => (<>{format(params.row.createdAt, "PPP, p") }</>) },
 
-        {
-            field: "Actions",
-            headerName: "Actions",
-            width: 200,
-            renderCell: ((params) => {
-                console.log({ data: params.row.id });
+        // {
+        //     field: "Actions",
+        //     headerName: "Actions",
+        //     width: 200,
+        //     renderCell: ((params) => {
+        //         console.log({ data: params.row.id });
 
-                return <div className='w-[10rem] flex items-center'>
-                    <Tooltip
-                        title="To Edit Attendance"
-                    >
-                        <IconButton>
-                            <Edit className='text-blue-700' />
-                        </IconButton>
-                    </Tooltip>
+        //         return <div className='w-[10rem] flex items-center'>
+        //             <Tooltip
+        //                 title="To Edit Attendance"
+        //             >
+        //                 <IconButton>
+        //                     <Edit className='text-blue-700' />
+        //                 </IconButton>
+        //             </Tooltip>
 
-                    <Tooltip
-                        title="Delete Attendance"
-                    >
+        //             <Tooltip
+        //                 title="Delete Attendance"
+        //             >
 
-                        <PaymentModal userId={params.row.id} >
-                            <Delete className='text-red-600' />
-                        </PaymentModal>
+        //                 <PaymentModal userId={params.row.id} >
+        //                     <Delete className='text-red-600' />
+        //                 </PaymentModal>
 
-                    </Tooltip>
+        //             </Tooltip>
 
 
-                </div>
-            }
-            )
-        }
+        //         </div>
+        //     }
+        //     )
+        // }
     ];
     const { data } = useAttendanceUsers()
     // setSearchParams({ page: '3', filter: 'archived' });

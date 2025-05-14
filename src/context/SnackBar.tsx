@@ -28,7 +28,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
     <SnackbarContext.Provider value={{ showSnackbar }}>
       {children}
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert className='bg-green-600 text-white' onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+        <Alert variant='filled' className='text-white' onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
       </Snackbar>

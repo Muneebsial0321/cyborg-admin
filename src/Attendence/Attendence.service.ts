@@ -6,8 +6,14 @@ const createAttandence = async (userId: string, time: "MORNING" | "EVENING") => 
     return data
 }
 
-const getAllAttendences = async () => {
-    const { data } = await api.get("/attendance")
+const getAllAttendences = async ({ query, attendanceType, createdAt }: { query?: string, attendanceType?: string, createdAt?: string }) => {
+    const { data } = await api.get("/attendance", {
+        params: {
+            ...(query ? { query } : {}),
+            ...(attendanceType ? { attendanceType } : {}),
+            ...(createdAt ? { createdAt } : {})
+        }
+    })
     return data
 }
 const getOneAttendence = async () => { }
