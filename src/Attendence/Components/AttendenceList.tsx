@@ -1,14 +1,8 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
-import { IconButton, Tooltip, Typography } from '@mui/material';
-import { Delete, Edit, } from '@mui/icons-material';
 import AttendanceSearch from './AttendanceSearch';
 import { useAttendanceUsers } from '../useAttendance';
 import { format } from "date-fns"
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import React, { useState } from 'react';
 import { AttendanceType } from '../Attendance.type';
 
 
@@ -98,42 +92,3 @@ export default function AttendanceListTab() {
 
 
 
-
-interface IPaymentModal {
-    userId: string;
-    payment?: string;
-    cardio?: boolean;
-    children: React.ReactNode
-}
-const PaymentModal: React.FC<IPaymentModal> = ({ userId, cardio = false, payment = 2000, children }) => {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    return (
-        <div>
-            <IconButton onClick={handleOpen}>{children}</IconButton>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box className='flex justify-center items-center h-[100vh]'>
-                    <div className="bg-[#ffffff] rounded-3xl p-10">
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Confirm Invoice
-                        </Typography>
-                        <p> userId {userId}</p>
-                        <p> payment {payment}</p>
-                        <p> cardio {cardio}</p>
-                        <div className="flex w-full justify-center gap-4 mt-4">
-                            <Button onClick={handleClose} variant='outlined' className='hover:scale-105 transition-all duration-300 w-full rounded-xl border-red-500 text-red-500'>Cancel</Button>
-                            <Button variant='contained' className='w-full hover:scale-105 transition-all bg-black rounded-xl'>Confirm</Button>
-                        </div>
-                    </div>
-                </Box>
-            </Modal>
-        </div>
-    );
-}

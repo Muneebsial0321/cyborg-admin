@@ -1,5 +1,4 @@
 import DashBoard from "./DashBoard";
-import DashBoardUserSection from "./DashBoardUserSection";
 
 export default function Main() {
    return (
