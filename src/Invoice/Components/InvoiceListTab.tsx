@@ -1,7 +1,7 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { IconButton, Tooltip, Typography } from '@mui/material';
-import { Edit, ViewAgenda } from '@mui/icons-material';
+import { Edit, Receipt, ViewAgenda } from '@mui/icons-material';
 import { format } from "date-fns"
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -52,12 +52,12 @@ export default function InvoiceListTab() {
       })
     },
     // desc
-    {
-      field: 'description', headerName: 'Description', width: 130,
-      renderCell: ((params) => {
-        return <>{params.row.description}</>
-      })
-    },
+    // {
+    //   field: 'description', headerName: 'Description', width: 130,
+    //   renderCell: ((params) => {
+    //     return <>{params.row.description}</>
+    //   })
+    // },
     // created At
     {
       field: 'createdAt', headerName: 'Created AT', width: 130,
@@ -81,16 +81,16 @@ export default function InvoiceListTab() {
         console.log({ data: params.row.id });
 
         return <div className='w-[10rem] flex items-center'>
-          <Tooltip
+          {/* <Tooltip
             title="To Edit User"
           >
             <IconButton>
               <Edit className='text-blue-700' />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
 
           <Tooltip
-            title="Delete User"
+            title="Invoice Details"
           >
 
             <InvoiceModal invoice={params.row} />
@@ -151,89 +151,99 @@ const InvoiceModal = ({ invoice }: { invoice: InvoiceType }) => {
 
   return (
     <div>
-      <IconButton onClick={handleOpen}><ViewAgenda /></IconButton>
+      <IconButton onClick={handleOpen} size="small">
+        <Receipt className="text-blue-300" />
+      </IconButton>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
       >
-        <Box className='flex justify-center items-center h-[100vh]'>
-          <div className="bg-[#ffffff] rounded-3xl p-10 w-[20rem]">
-            <Typography className='mb-4' id="modal-modal-title" variant="h6" component="h2">
-              Invoice Details
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            borderRadius: 2,
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
+            Invoice Details
+          </Typography>
+
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subtitle2" color="text.secondary">
+              User Name:
             </Typography>
+            <Typography variant="body1" fontWeight="bold">
+              {invoice.user.name}
+            </Typography>
+          </Box>
 
-            {/* invoice */}
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subtitle2" color="text.secondary">
+              Cell Phone:
+            </Typography>
+            <Typography variant="body1" fontWeight="bold">
+              {invoice.user.phoneNumber}
+            </Typography>
+          </Box>
 
-            {/*name */}
-            <div className="flex justify-between">
-              <p className='font-mono text-sm font-semibold text-gray-500 w-full'>
-                User Name:
-              </p>
-              <p className='font-bold text-sm text-gray-600'>
-                {invoice.user.name}
-              </p>
-            </div>
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subtitle2" color="text.secondary">
+              Pay Date:
+            </Typography>
+            <Typography variant="body1" fontWeight="bold">
+              {format(invoice.createdAt, "MMMM do, yyyy")}
+            </Typography>
+          </Box>
 
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subtitle2" color="text.secondary">
+              Invoice Type:
+            </Typography>
+            <Typography variant="body1" fontWeight="bold">
+              {invoice.invoiceType === "MONTHLY_FEE" ? "Monthly Fee" : "Registration"}
+            </Typography>
+          </Box>
 
-            {/*phone */}
-            <div className="flex justify-between">
-              <p className='font-mono text-sm font-semibold text-gray-500 w-full'>
-                Cell Phone:
-              </p>
-              <p className='font-bold text-sm text-gray-600'>
-                {invoice.user.phoneNumber}
-              </p>
-            </div>
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subtitle2" color="text.secondary">
+              Amount:
+            </Typography>
+            <Typography variant="body1" fontWeight="bold" color="primary">
+              Rs.{invoice.fee}
+            </Typography>
+          </Box>
 
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subtitle2" color="text.secondary">
+              Description:
+            </Typography>
+            <Typography variant="body1" fontWeight="bold">
+              {invoice.description}
+            </Typography>
+          </Box>
 
-            {/*name */}
-            <div className="flex justify-between">
-              <p className='font-mono text-sm font-semibold text-gray-500 w-full'>
-                Pay Date:
-              </p>
-              <p className='font-bold text-sm text-gray-600 whitespace-nowrap'>
-                {format(invoice.createdAt, "MM dd ,yyyy")}
-              </p>
-            </div>
-
-            {/*next Pay */}
-            <div className="flex justify-between">
-              <p className='font-mono text-sm font-semibold text-gray-500 w-full'>
-                Next Payment:
-              </p>
-              <p className='font-bold text-sm text-gray-600 whitespace-nowrap'>
-                {format(invoice.user.nextPayment, "MM dd ,yyyy")}
-              </p>
-            </div>
-
-
-            {/*Money */}
-            <div className="flex justify-between">
-              <p className='font-mono text-sm font-semibold text-gray-500 w-full'>
-                Fee:
-              </p>
-              <p className='font-bold text-lg text-gray-800 whitespace-nowrap'>
-                Rs.{invoice.fee}
-              </p>
-            </div>
-
-
-            {/*desc */}
-            <div className="flex justify-between">
-              <p className='font-mono text-sm font-semibold text-gray-500 w-full'>
-                Description:
-              </p>
-              <p className='font-bold text-sm text-gray-600'>
-                {invoice.invoiceType}
-              </p>
-            </div>
-
-            <div className="flex w-full justify-center gap-4 mt-4">
-              <Button onClick={handleClose} variant='outlined' className='hover:scale-105 transition-all duration-300 w-full rounded-xl border-red-500 text-red-500'>Cancel</Button>
-            </div>
-          </div>
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="subtitle2" color="text.secondary">
+              Next Payment Due:
+            </Typography>
+            <Typography variant="body1" fontWeight="bold">
+              {format(new Date(invoice.user.nextPayment), "MMMM do, yyyy")}
+            </Typography>
+          </Box>
         </Box>
       </Modal>
     </div>

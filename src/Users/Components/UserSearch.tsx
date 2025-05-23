@@ -23,6 +23,11 @@ const UserSearch = () => {
             {/* text field */}
             <div className="">
                 <TextField
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            handleSearchClick()
+                        }
+                    }}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className='w-[19rem]'

@@ -14,11 +14,11 @@ export default function useUsers() {
    const pstatus = searchParams.get('pstatus');
 
 
-   const { data: getUsers } = useQuery({
+   const { data: getUsers ,isLoading } = useQuery({
       queryFn: () => getAllUsers(query, pstatus),
       queryKey: ["get-user", query, pstatus]
    })
-   return { getUsers }
+   return { getUsers ,isLoading }
 }
 
 export const useUserCreateForm = () => {
@@ -31,7 +31,7 @@ export const useUserCreateForm = () => {
          name: "",
          phone: "",
          registrationFee: 1500,
-         monthlyFee: 2000,
+         // monthlyFee: 2000,
          cardio: false,
          image: null,
          personalTrainer: false,
