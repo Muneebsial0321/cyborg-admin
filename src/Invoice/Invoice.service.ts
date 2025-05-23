@@ -1,7 +1,11 @@
 import api from "../_shared/Configs/Axios"
 import { InvoiceType } from "./Invoice.type"
+import { CreateInvoiceSchemaType } from "./Invoice.schema"
 
-const createInvoice = async () => { }
+const createInvoice = async (payload: CreateInvoiceSchemaType) => {
+    const { data } = await api.post("/invoices", payload)
+    return data
+}
 const getAllInvoices = async (
     query: string | null,
     invoiceType: string | null,

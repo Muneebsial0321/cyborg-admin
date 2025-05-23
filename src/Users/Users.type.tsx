@@ -11,4 +11,5 @@ export type UsersType = {
     presonalTrainer: boolean
     cardio: boolean
     image: string | null
+    picUrl: string | null
 }

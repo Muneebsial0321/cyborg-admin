@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, OutlinedInput, Switch, TextField } from "@mui/material"
+import { Avatar, Button, Card, Input, OutlinedInput, Switch, TextField, Typography } from "@mui/material"
 import { useState } from "react"
 import { useUserCreateForm } from "../useUsers";
 
@@ -15,6 +15,17 @@ const UserCreateTab = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const getDefaultRegistrationFee = (): number => {
+    const MONTHLY_FEE = 2000;
+    const today = new Date();
+    const nextPayment = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+
+    const diffInMs = nextPayment.getTime() - today.getTime();
+    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+
+    return Math.ceil(diffInDays * (MONTHLY_FEE / 30));
+  }
 
   const { register, formState: { errors }, handleSubmit, onSubmit } = useUserCreateForm()
   return (
@@ -39,6 +50,8 @@ const UserCreateTab = () => {
         {errors.phone && <p className="text-red-600">{errors.phone.message}</p>}
 
 
+
+
         <div className="flex justify-between gap-2">
 
           <div className="">
@@ -53,17 +66,25 @@ const UserCreateTab = () => {
             <TextField
               type="number"
               {...register("monthlyFee", { valueAsNumber: true })}
-              defaultValue={2000} className="w-full" label="Monthly Fees" variant="outlined" />
+              defaultValue={getDefaultRegistrationFee()}
+              className="w-full" label="Monthly Fees" variant="outlined"
+            />
             {errors.monthlyFee && <p className="text-red-600">{errors.monthlyFee.message}</p>}
           </div>
 
         </div>
 
+        <OutlinedInput
+          type="date"
+          {...register("nextPayment")}
+        />
+        {errors.nextPayment && <p className="text-red-600">{errors.nextPayment.message}</p>}
+
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
             <div className="flex items-center">
               <Switch
-              {...register("cardio")}
+                {...register("cardio")}
                 checked={cardioChecked}
                 onChange={(e) => {
                   setCardioChecked(e.target.checked)
@@ -80,7 +101,7 @@ const UserCreateTab = () => {
 
             <div className="flex items-center">
               <Switch
-              {...register("personalTrainer")}
+                {...register("personalTrainer")}
                 checked={personalTrainerChecked}
                 onChange={(e) => {
                   setPersonalTrainerChecked(e.target.checked)
@@ -110,8 +131,8 @@ const UserCreateTab = () => {
 
         {/* input */}
         <OutlinedInput
-        // {...register("image")}
-        className="w-[17rem]" type={"file"} onChange={handleImageChange} />
+          {...register("image")}
+          className="w-[17rem]" type={"file"} onChange={handleImageChange} />
       </Card>
     </form>
   )
