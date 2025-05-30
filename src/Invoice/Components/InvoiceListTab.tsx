@@ -1,10 +1,9 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import { IconButton, Tooltip, Typography } from '@mui/material';
-import { Edit, Receipt, ViewAgenda } from '@mui/icons-material';
+import { Receipt } from '@mui/icons-material';
 import { format } from "date-fns"
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import { InvoiceType } from '../Invoice.type';
