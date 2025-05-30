@@ -75,6 +75,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import routes from '../../routes/routes';
 import { Link } from 'react-router-dom';
+import { HomeFilled } from '@mui/icons-material';
 
 const drawerWidth = 230;
 
@@ -206,7 +207,10 @@ export default function PersistentDrawerLeft({children}:{children:React.ReactNod
         <DrawerHeader
         className='bg-black'
         >
-          <IconButton onClick={handleDrawerClose}>
+          <div className="w-full">
+            <HomeFilled className='text-white text-4xl'/>
+          </div>
+         <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon className='text-white' /> : <ChevronRightIcon className='text-white' />}
           </IconButton>
         </DrawerHeader>

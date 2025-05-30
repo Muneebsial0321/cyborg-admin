@@ -2,13 +2,13 @@ import { DataGrid, GridCheckCircleIcon, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import useUsers from '../useUsers';
 import { Avatar, Chip, IconButton, InputAdornment, Tooltip, Typography } from '@mui/material';
-import { Cancel, Delete, Edit, MoneyOutlined, Receipt, Save } from '@mui/icons-material';
+import { HowToReg, Receipt} from '@mui/icons-material';
 import UserSearch from './UserSearch';
 import { format } from "date-fns"
 import { differenceInCalendarDays } from 'date-fns';
 
 
-const paginationModel = { page: 0, pageSize: 5 };
+// const paginationModel = { page: 0, pageSize: 100 };
 
 export default function UserListTab() {
 
@@ -52,7 +52,7 @@ export default function UserListTab() {
       renderCell: ((param) => {
 
         const daysRemaining = differenceInCalendarDays(new Date(param.row.nextPayment!), new Date())
-        const THRESHOLD = 13
+        const THRESHOLD = 7
         console.log("data:", { daysRemaining: daysRemaining <= THRESHOLD });
 
         return <>
@@ -71,7 +71,7 @@ export default function UserListTab() {
               size='medium'
               className='bg-yellow-500 text-white mx-auto w-[7rem] shadow-2xl'
               clickable={true}
-            />:""}
+            /> : ""}
 
             {daysRemaining <= 0 && <Chip
               variant='filled'
@@ -95,13 +95,13 @@ export default function UserListTab() {
         const daysRemaining = differenceInCalendarDays(new Date(params.row.nextPayment!), new Date())
 
         return <div className='w-[10rem] flex items-center'>
-          <Tooltip
+          {/* <Tooltip
             title="To Edit User"
           >
             <IconButton>
               <Edit className='text-blue-700' />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
 
           <Tooltip
             title="Delete User"
@@ -111,10 +111,10 @@ export default function UserListTab() {
               userId={params.row.id!}
               userName={params.row.name}
               picUrl={params.row.picUrl!}
-              nextPayment={params.row.nextPayment!}
+              nextPayment={params.row.nextPayment!.toString()}
               daysRemaining={daysRemaining}
             >
-              <Receipt className='text-red-600' />
+              <Receipt className='text-blue-600' />
             </PaymentModal>
 
           </Tooltip>
@@ -125,7 +125,7 @@ export default function UserListTab() {
           >
             <AttendanceModal userId={params.row.id!} userName={params.row.name} >
               <IconButton className={`${params.row.hasAttendanceToday == "Present" ? "hidden" : ""}`}>
-                <Save className='text-green-700' />
+                <HowToReg className='text-green-700' />
               </IconButton>
             </AttendanceModal>
           </Tooltip>
@@ -151,8 +151,8 @@ export default function UserListTab() {
             className='overflow-auto hide-scrollbar'
             rows={getUsers}
             columns={columns}
-            initialState={{ pagination: { paginationModel } }}
-            pageSizeOptions={[5, 10]}
+            // initialState={{ pagination: { paginationModel } }}
+            // pageSizeOptions={[5, 10]}
             // checkboxSelection
             sx={{
               border: 0,
@@ -236,7 +236,7 @@ const PaymentModal: React.FC<IPaymentModal> = ({ daysRemaining, userId, userName
               <div className="flex items-center justify-between">
                 <Typography variant="subtitle1">Payment Amount</Typography>
                 <TextField
-                  {...register('fee')}
+                  {...register('fee', { valueAsNumber: true })}
                   type="number"
                   className="w-[200px]"
                   InputProps={{

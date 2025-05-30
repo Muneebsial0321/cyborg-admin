@@ -1,23 +1,26 @@
 import { Typography } from "@mui/material"
 import DashBoardWidget from "./DashBoardWidget"
+import useDashBoardData from "../useHome"
 
 const DashBoard = () => {
+    const { data, isLoading } = useDashBoardData()
+    if (isLoading) return "loading"
     return (
         <div className="px-10 flex justify-center flex-col -items-center">
-             <Typography
-                  variant='h3'
-                  component={"h3"}
-                  className='py-4'
+            <Typography
+                variant='h3'
+                component={"h3"}
+                className='py-4'
             >
-                  Dashboard
+                Dashboard
             </Typography>
             {/*canvas  */}
             <div className="grid grid-cols-3 gap-4">
-                {[11,1,1,1,1,1].map((_, i) => (
+                {data && data.map((e, i) => (
                     <DashBoardWidget
                         key={i}
-                        label="User"
-                        data="809"
+                        label={e.label!}
+                        data={e.data as string}
                     />
                 ))}
 
