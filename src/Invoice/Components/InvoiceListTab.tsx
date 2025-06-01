@@ -13,7 +13,7 @@ import InvoiceSearch from './InvoiceSearchComp';
 
 
 
-const paginationModel = { page: 0, pageSize: 5 };
+// const paginationModel = { page: 0, pageSize: 5 };
 
 export default function InvoiceListTab() {
 
@@ -117,8 +117,7 @@ export default function InvoiceListTab() {
             className='overflow-auto hide-scrollbar'
             rows={getInvoices}
             columns={columns}
-            initialState={{ pagination: { paginationModel } }}
-            pageSizeOptions={[5, 10]}
+            // initialState={{ pagination: { paginationModel } }}
             // checkboxSelection
             sx={{
               border: 0,

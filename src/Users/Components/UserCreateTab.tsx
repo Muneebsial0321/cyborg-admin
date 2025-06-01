@@ -16,16 +16,16 @@ const UserCreateTab = () => {
     }
   };
 
-  const getDefaultRegistrationFee = (): number => {
-    const MONTHLY_FEE = 2000;
-    const today = new Date();
-    const nextPayment = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+  // const getDefaultRegistrationFee = (): number => {
+  //   const MONTHLY_FEE = 2000;
+  //   const today = new Date();
+  //   const nextPayment = new Date(today.getFullYear(), today.getMonth() + 1, 1);
 
-    const diffInMs = nextPayment.getTime() - today.getTime();
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+  //   const diffInMs = nextPayment.getTime() - today.getTime();
+  //   const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
 
-    return Math.ceil(diffInDays * (MONTHLY_FEE / 30));
-  }
+  //   return Math.ceil(diffInDays * (MONTHLY_FEE / 30));
+  // }
 
   const { register, formState: { errors }, handleSubmit, onSubmit } = useUserCreateForm()
   return (
@@ -66,7 +66,7 @@ const UserCreateTab = () => {
             <TextField
               type="number"
               {...register("monthlyFee", { valueAsNumber: true })}
-              defaultValue={getDefaultRegistrationFee()}
+              defaultValue={2000}
               className="w-full" label="Monthly Fees" variant="outlined"
             />
             {errors.monthlyFee && <p className="text-red-600">{errors.monthlyFee.message}</p>}
@@ -74,11 +74,15 @@ const UserCreateTab = () => {
 
         </div>
 
-        <OutlinedInput
-          type="date"
-          {...register("nextPayment")}
-        />
-        {errors.nextPayment && <p className="text-red-600">{errors.nextPayment.message}</p>}
+        <div className="flex w-full  gap-4 items-center">
+          <label className="whitespace-nowrap">Next Payment:</label>
+          <OutlinedInput
+            className="w-full"
+            type="date"
+            {...register("nextPayment")}
+          />
+          {errors.nextPayment && <p className="text-red-600">{errors.nextPayment.message}</p>}
+        </div>
 
         <div className="flex items-center justify-between">
           <div className="flex flex-col">

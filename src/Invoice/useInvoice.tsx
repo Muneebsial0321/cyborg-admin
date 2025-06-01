@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { createInvoice, getAllInvoices } from "./Invoice.service";
 import { InvoiceType } from "./Invoice.type";
@@ -28,6 +28,7 @@ export default function useInvoices() {
 }
 
 export const useCreateInvoiceForm = () => {
+   const queryClient = useQueryClient()
    const { showSnackbar } = useSnackbar()
    const form = useForm<CreateInvoiceSchemaType>({
       resolver: zodResolver(createInvoiceSchema),
@@ -46,6 +47,7 @@ export const useCreateInvoiceForm = () => {
             "Invoice Created Successfully",
             "success"
          )
+         queryClient.invalidateQueries({ queryKey: ["get-user"] })
       } catch (error) {
          console.log({ error });
          showSnackbar(
@@ -55,5 +57,5 @@ export const useCreateInvoiceForm = () => {
 
       }
    };
-   return {form, onSubmit};
+   return { form, onSubmit };
 };

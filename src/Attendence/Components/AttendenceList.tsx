@@ -4,9 +4,10 @@ import AttendanceSearch from './AttendanceSearch';
 import { useAttendanceUsers } from '../useAttendance';
 import { format } from "date-fns"
 import { AttendanceType } from '../Attendance.type';
+import { Bedtime, Sunny } from '@mui/icons-material';
 
 
-const paginationModel = { page: 0, pageSize: 5 };
+// const paginationModel = { page: 0, pageSize: 5 };
 
 export default function AttendanceListTab() {
 
@@ -14,40 +15,17 @@ export default function AttendanceListTab() {
         { field: 'id', headerName: 'ID', width: 100 },
         { field: 'name', headerName: 'Name', width: 130, renderCell: (params) => (<>{params.row.User.name}</>) },
         { field: 'phone', headerName: 'Phone', width: 130, renderCell: (params) => (<>{params.row.User.phoneNumber}</>) },
-        { field: 'Time', headerName: 'Time', width: 130, renderCell: (params) => (<>{params.row.time}</>) },
-        { field: 'CreatedAT', headerName: 'Created AT', width: 190, renderCell: (params) => (<>{format(params.row.createdAt, "PPP, p") }</>) },
+        {
+            field: 'Time', headerName: 'Time', width: 130, renderCell: (params) => {
+                const time: unknown = params.row.time
+                return <div className='w-full flex justify-center items-center h-full'>
+                    {time === "EVENING" && <Bedtime className='text-blue-950' />}
+                    {time === "MORNING" && <Sunny className='text-yellow-400' />}
+                </div>
+            }
+        },
+        { field: 'CreatedAT', headerName: 'Created AT', width: 190, renderCell: (params) => (<>{format(params.row.createdAt, "PPP, p")}</>) },
 
-        // {
-        //     field: "Actions",
-        //     headerName: "Actions",
-        //     width: 200,
-        //     renderCell: ((params) => {
-        //         console.log({ data: params.row.id });
-
-        //         return <div className='w-[10rem] flex items-center'>
-        //             <Tooltip
-        //                 title="To Edit Attendance"
-        //             >
-        //                 <IconButton>
-        //                     <Edit className='text-blue-700' />
-        //                 </IconButton>
-        //             </Tooltip>
-
-        //             <Tooltip
-        //                 title="Delete Attendance"
-        //             >
-
-        //                 <PaymentModal userId={params.row.id} >
-        //                     <Delete className='text-red-600' />
-        //                 </PaymentModal>
-
-        //             </Tooltip>
-
-
-        //         </div>
-        //     }
-        //     )
-        // }
     ];
     const { data } = useAttendanceUsers()
     // setSearchParams({ page: '3', filter: 'archived' });
@@ -65,8 +43,8 @@ export default function AttendanceListTab() {
                         className='overflow-auto hide-scrollbar'
                         rows={data}
                         columns={columns}
-                        initialState={{ pagination: { paginationModel } }}
-                        pageSizeOptions={[5, 10]}
+                        // initialState={{ pagination: { paginationModel } }}
+                        // pageSizeOptions={[5, 10]}
                         // checkboxSelection
                         sx={{
                             border: 0,

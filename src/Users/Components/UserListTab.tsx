@@ -228,7 +228,7 @@ const PaymentModal: React.FC<IPaymentModal> = ({ daysRemaining, userId, userName
               </div>
               <Typography variant="h6" component="h2" className="font-semibold">
                 {userName}
-                <Chip className={`cursor-pointer ml-2 text-white ${daysRemaining < 0 ? 'bg-red-600' : 'bg-green-600'}`} label={`${daysRemaining} days remaining`} />
+                <Chip className={`cursor-pointer ml-2 text-white ${daysRemaining <= 0 ? 'bg-red-600' : 'bg-green-600'}`} label={`${daysRemaining} days remaining`} />
               </Typography>
             </div>
 
